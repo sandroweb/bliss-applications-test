@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "eslint-plugin-import-helpers": "^1.2.1",
-    "lint-staged": "^12.3.3"
+    "lint-staged": "^12.3.3",
+    "prettier": "^2.5.1"
   }
 }
