@@ -7,5 +7,7 @@ type GetHealthStatusResponse = {
 };
 
 export const getHealthStatus = () => {
-  return axios.get<GetHealthStatusResponse>(`${API}/health`);
+  return axios
+    .get<GetHealthStatusResponse>(`${API}/health`)
+    .catch((err) => ({ data: { status: err } }));
 };
