@@ -24,7 +24,11 @@ const move = keyframes`
 
 export const StyledLoading = styled.div<LoadingProps>`
   opacity: ${({ show }) => (show ? 1 : 0)};
-  transition: opacity 300ms ease-in-out;
+  transition: ${({ show }) => {
+    return show
+      ? 'opacity 100ms 0ms ease-in-out'
+      : 'opacity 500ms 100ms ease-in-out';
+  }};
 
   .container {
     height: 15px;
