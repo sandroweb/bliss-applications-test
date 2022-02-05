@@ -4,11 +4,13 @@ import { Palette } from './theme-default.type';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
+    font: string;
     palette: Palette;
   }
 }
 
 export const theme: DefaultTheme = {
+  font: 'Arial, Helvetica, sans-serif',
   palette: {
     common: { black: '#000', white: '#fff' },
     primary: {
