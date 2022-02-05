@@ -29,7 +29,7 @@ export const StyledLoading = styled.div<LoadingProps>`
   .container {
     height: 15px;
     display: flex;
-    margin: 0 auto;
+    margin: 0 auto 20px;
     width: 105px;
     position: relative;
   }
