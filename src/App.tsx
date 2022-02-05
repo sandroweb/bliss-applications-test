@@ -1,20 +1,17 @@
+import { FC } from 'react';
+
 import { HealthCheck } from 'components/health-check';
 import { ThemeProvider } from 'components/theme-provider';
 
 import 'normalize.css';
 
-function App() {
+export const App: FC = ({ children }) => {
   return (
     <div className="App">
       <ThemeProvider>
         <HealthCheck />
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-        deleniti quos dolores cum fugiat accusamus nihil, consequatur possimus
-        impedit, sunt dicta? Iure deleniti eum facere reiciendis, nisi adipisci
-        vel aliquam!
+        {children}
       </ThemeProvider>
     </div>
   );
-}
-
-export default App;
+};
