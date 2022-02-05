@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle(() => {
       boxSizing: 'border-box',
     },
     body: {
+      background: theme.palette.grey[100],
       fontFamily: theme.font,
     },
   };

@@ -60,10 +60,6 @@ export const theme: DefaultTheme = {
       '700': '#616161',
       '800': '#424242',
       '900': '#212121',
-      A100: '#f5f5f5',
-      A200: '#eeeeee',
-      A400: '#bdbdbd',
-      A700: '#616161',
     },
     text: {
       primary: 'rgba(0, 0, 0, 0.87)',
