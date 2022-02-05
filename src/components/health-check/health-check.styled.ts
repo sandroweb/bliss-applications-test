@@ -12,10 +12,7 @@ export const Overlay = styled.div`
 `;
 
 export const Container = styled.div`
-  background: ${({ theme }) => theme.palette.common.white};
-  border-radius: 5px;
   left: 10%;
-  padding: 15px;
   position: fixed;
   text-align: center;
   top: 25%;

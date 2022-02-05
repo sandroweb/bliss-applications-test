@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { getHealthStatus } from 'api/health-check/service';
 import { Button } from 'components/button';
+import { Card } from 'components/card';
 import { Loading } from 'components/loading';
 
 import { Container, Overlay, Title } from './health-check.styled';
@@ -27,13 +28,15 @@ export const HealthCheck: FC = () => {
     <>
       <Overlay />
       <Container>
-        <Title>Checking Server status</Title>
-        <Loading show={loading} />
-        {serverStatus === false && (
-          <Button color="primary" onClick={handleCheckStatus}>
-            Try Again
-          </Button>
-        )}
+        <Card>
+          <Title>Checking Server status</Title>
+          <Loading show={loading} />
+          {serverStatus === false && (
+            <Button color="primary" onClick={handleCheckStatus}>
+              Try Again
+            </Button>
+          )}
+        </Card>
       </Container>
     </>
   ) : null;
