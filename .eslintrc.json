@@ -24,6 +24,7 @@
           "module",
           "/^api/",
           "/^component/",
+          "/^helpers/",
           "/^@shared/",
           ["parent", "sibling", "index"]
         ],
