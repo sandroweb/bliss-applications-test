@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { getHealthStatus } from 'api/health-check/service';
 
@@ -9,6 +10,8 @@ import { Loading } from 'components/loading';
 import { Container, Overlay, Title } from './health-check.styled';
 
 export const HealthCheck: FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [serverStatus, setServerStatus] = useState<boolean>();
   const [loading, setLoading] = useState(true);
 
@@ -24,6 +27,12 @@ export const HealthCheck: FC = () => {
     setTimeout(handleCheckStatus, 1000);
     setInterval(handleCheckStatus, 60000);
   }, []);
+
+  useEffect(() => {
+    if (serverStatus && location.pathname === '/') {
+      navigate('/questions');
+    }
+  }, [location.pathname, navigate, serverStatus]);
 
   return !serverStatus ? (
     <>
