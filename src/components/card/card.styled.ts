@@ -1,9 +1,24 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const StyledCard = styled.div`
+import { CardProps } from './card.type';
+
+export const StyledCard = styled.div<CardProps>`
   background: ${({ theme }) => theme.palette.common.white};
+  border: 1px solid ${({ theme }) => theme.palette.grey[400]};
   border-radius: 5px;
-  box-shadow: 0 0 1px 0 ${({ theme }) => theme.palette.text.secondary};
   margin-bottom: 15px;
   padding: 15px;
+  transition: background 150ms ease-in-out, box-shadow 150ms ease-in-out;
+  ${({ hoverEffect }) =>
+    hoverEffect &&
+    css`
+      &:hover {
+        box-shadow: ${({ theme }) => {
+          return `inset 0 0 8px -4px ${theme.palette.primary.light}`;
+        }};
+      }
+      &:active {
+        background: ${({ theme }) => theme.palette.grey[300]};
+      }
+    `}
 `;
