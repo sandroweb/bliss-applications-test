@@ -16,8 +16,18 @@ export type Question = {
   choices: Choice[];
 };
 
-export const getAllQuestions = async (): Promise<AxiosResponse<Question[]>> => {
-  return await axios.get<Question[]>(`${API}/questions`);
+export type GetQuestionsParams = {
+  page?: number;
+  filter?: string;
+};
+
+export const getQuestions = async ({
+  page = 0,
+  filter,
+}: GetQuestionsParams): Promise<AxiosResponse<Question[]>> => {
+  return await axios.get<Question[]>(`${API}/questions`, {
+    params: { limit: 10, offset: 10 * page, filter },
+  });
 };
 
 export const getQuestion = async (id: number) => {
