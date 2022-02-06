@@ -6,6 +6,7 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     font: string;
     palette: Palette;
+    spacing: (multiplier: number) => number;
   }
 }
 
@@ -62,9 +63,10 @@ export const theme: DefaultTheme = {
       '900': '#212121',
     },
     text: {
-      primary: 'rgba(0, 0, 0, 0.87)',
-      secondary: 'rgba(0, 0, 0, 0.6)',
-      disabled: 'rgba(0, 0, 0, 0.38)',
+      primary: 'rgba(0, 0, 0, 0.7)',
+      secondary: 'rgba(0, 0, 0, 0.5)',
+      disabled: 'rgba(0, 0, 0, 0.3)',
     },
   },
+  spacing: (multiplier: number) => 15 * multiplier,
 };
