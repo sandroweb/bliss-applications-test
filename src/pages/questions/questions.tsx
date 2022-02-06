@@ -1,7 +1,8 @@
 import { FC, useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
-import { getQuestions, Question } from 'api/questions/service';
+import { getQuestions } from 'api/questions/service';
+import { Question } from 'api/questions/types';
 
 import { Button } from 'components/button';
 import { Card } from 'components/card';
