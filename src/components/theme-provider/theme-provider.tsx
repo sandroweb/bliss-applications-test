@@ -16,6 +16,10 @@ const GlobalStyle = createGlobalStyle(() => {
       background: theme.palette.grey[100],
       fontFamily: theme.font,
     },
+    a: {
+      color: 'inherit',
+      textDecoration: 'none',
+    },
   };
 });
 
