@@ -1,67 +1,86 @@
 import { FC, useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { getAllQuestions, Question } from 'api/questions/service';
+import { getQuestions, Question } from 'api/questions/service';
 
-import { StyledContainer } from './questions.styled';
+import { Button } from 'components/button';
+import { Card } from 'components/card';
+
+import { useDebounce } from 'helpers/useDebounce';
+
+import {
+  Container,
+  QuestionListHeader,
+  Title,
+  HeaderText,
+  QuestionItemTitle,
+  StyledTextField,
+  LoadMore,
+} from './questions.styled';
 
 export const Questions: FC = () => {
-  const [questions, setQuestions] = useState<Question[]>();
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [isSearching, setIsSearching] = useState<boolean>();
+  const [page, setPage] = useState(0);
 
-  const [searchParams, setSearchParams] = useSearchParams({});
-  const [searchValue, setSearchValue] = useState(
-    searchParams.get('filter') || ''
-  );
+  const debouncedSearchTerm: string = useDebounce<string>(searchTerm, 400);
 
   useEffect(() => {
-    getAllQuestions()
-      .then((res) => {
-        setQuestions(res.data);
+    setIsSearching(true);
+    getQuestions({ page, filter: debouncedSearchTerm })
+      .then((response) => {
+        if (page === 0) {
+          setQuestions(response.data);
+        } else {
+          setQuestions((prevQuestions) => [...prevQuestions, ...response.data]);
+        }
       })
-      .catch(() => {
-        setQuestions([]);
+      .finally(() => {
+        setIsSearching(false);
       });
-  }, []);
-
-  useEffect(() => {
-    let timeoutSearch: NodeJS.Timeout;
-    timeoutSearch = setTimeout(() => {
-      setSearchParams({ filter: searchValue });
-    }, 400);
-    return () => {
-      if (timeoutSearch) {
-        clearTimeout(timeoutSearch);
-      }
-    };
-  }, [searchValue, setSearchParams]);
+  }, [debouncedSearchTerm, page]);
 
   return (
-    <StyledContainer>
-      <h1>Total:{questions?.length}</h1>:<h1>Questions:</h1>:
-      <div>
-        <input
-          type="text"
-          name="s"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
+    <>
+      <QuestionListHeader>
+        <Title>{'page title'}:</Title>
+        <HeaderText>
+          Choose the question to vote on or use the search field to find the
+          question
+        </HeaderText>
+        <StyledTextField
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Type your search here"
+          maxLength={70}
         />
-      </div>
-      <div>
-        {questions?.map(({ id, question, choices }, i) => (
-          <Link to={`/questions/${id}`} key={i}>
-            <h3>{question}</h3>
-            <div>
-              {choices.map(({ votes, choice }, x) => (
-                <div key={x}>
-                  <div>
-                    {votes} - {choice}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Link>
-        ))}
-      </div>
-    </StyledContainer>
+      </QuestionListHeader>
+      <Container>
+        {questions.map(({ id, question }, i) => {
+          return (
+            <Link to={`/questions/${id}`} key={i}>
+              <Card hoverEffect>
+                <QuestionItemTitle>{question}</QuestionItemTitle>
+              </Card>
+            </Link>
+          );
+        })}
+
+        {!!questions.length && (
+          <LoadMore>
+            <Button
+              color="primary"
+              disabled={isSearching}
+              onClick={() => {
+                setPage((prevPage) => prevPage + 1);
+              }}
+            >
+              Load More
+            </Button>
+          </LoadMore>
+        )}
+      </Container>
+    </>
   );
 };
