@@ -4,7 +4,9 @@ import { CardProps } from './card.type';
 
 export const StyledCard = styled.div<CardProps>`
   background: ${({ theme }) => theme.palette.common.white};
-  border: 1px solid ${({ theme }) => theme.palette.grey[400]};
+  box-shadow: ${({ theme }) => {
+    return `0 3px 4px 0px ${theme.palette.grey[400]}`;
+  }};
   border-radius: 5px;
   margin-bottom: 15px;
   padding: 15px;
@@ -14,11 +16,11 @@ export const StyledCard = styled.div<CardProps>`
     css`
       &:hover {
         box-shadow: ${({ theme }) => {
-          return `inset 0 0 8px -4px ${theme.palette.primary.light}`;
+          return `0 1px 4px 1px ${theme.palette.grey[400]}`;
         }};
       }
       &:active {
-        background: ${({ theme }) => theme.palette.grey[300]};
+        background: ${({ theme }) => theme.palette.grey[50]};
       }
     `}
 `;
