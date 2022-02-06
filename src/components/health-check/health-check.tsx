@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import { getHealthStatus } from 'api/health-check/service';
+
 import { Button } from 'components/button';
 import { Card } from 'components/card';
 import { Loading } from 'components/loading';
@@ -21,7 +22,7 @@ export const HealthCheck: FC = () => {
 
   useEffect(() => {
     setTimeout(handleCheckStatus, 1000);
-    setInterval(handleCheckStatus, 10000);
+    setInterval(handleCheckStatus, 60000);
   }, []);
 
   return !serverStatus ? (
