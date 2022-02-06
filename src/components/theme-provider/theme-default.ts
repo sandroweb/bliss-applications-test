@@ -21,9 +21,9 @@ export const theme: DefaultTheme = {
       contrastText: '#fff',
     },
     secondary: {
-      main: '#9c27b0',
-      light: '#ba68c8',
-      dark: '#7b1fa2',
+      main: '#78909c',
+      light: '#90a4ae',
+      dark: '#455a64',
       contrastText: '#fff',
     },
     error: {
