@@ -18,7 +18,7 @@ export const QuestionListHeader = styled.div`
   }};
   display: flex;
   flex-direction: column;
-  margin-bottom: ${({ theme }) => theme.spacing(2)}px;
+  margin-bottom: ${({ theme }) => theme.spacing(1)}px;
   padding: ${({ theme }) => `${theme.spacing(2)}px ${theme.spacing(1)}px`};
 `;
 
@@ -36,7 +36,6 @@ export const HeaderText = styled.p`
   font-size: 18px;
   margin-top: 0;
   margin-bottom: ${({ theme }) => theme.spacing(1)}px;
-  overflow-wrap: anywhere;
   text-align: center;
 `;
 
@@ -49,6 +48,25 @@ export const QuestionItemTitle = styled.span`
 export const StyledTextField = styled(TextField)`
   max-width: 700px;
   width: 100%;
+`;
+
+export const SearchResultDescription = styled.div`
+  align-items: center;
+  color: ${({ theme }) => theme.palette.text.primary};
+  display: flex;
+  font-size: 18px;
+  justify-content: space-between;
+  margin-bottom: ${({ theme }) => theme.spacing(1)}px;
+  margin-top: 0;
+  p {
+    overflow-wrap: anywhere;
+    max-width: 70%;
+  }
+  a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `;
 
 export const LoadMore = styled.div`

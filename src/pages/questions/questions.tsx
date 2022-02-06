@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { getQuestions, Question } from 'api/questions/service';
 
@@ -15,25 +15,35 @@ import {
   HeaderText,
   QuestionItemTitle,
   StyledTextField,
+  SearchResultDescription,
   LoadMore,
 } from './questions.styled';
 
 export const Questions: FC = () => {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams({});
+  const [searchTerm, setSearchTerm] = useState<string | null>(
+    searchParams.get('filter')
+  );
+  const debouncedSearchTerm = useDebounce<string>(searchTerm || '', 400);
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>('');
   const [isSearching, setIsSearching] = useState<boolean>();
   const [page, setPage] = useState(0);
 
-  const debouncedSearchTerm: string = useDebounce<string>(searchTerm, 400);
+  const isSerachPage = searchTerm !== null;
+
+  const backToList = () => {
+    setSearchTerm(null);
+    navigate('/questions');
+  };
 
   useEffect(() => {
-    setIsSearching(true);
     getQuestions({ page, filter: debouncedSearchTerm })
       .then((response) => {
         if (page === 0) {
           setQuestions(response.data);
         } else {
-          setQuestions((prevQuestions) => [...prevQuestions, ...response.data]);
+          setQuestions((prevQuestions) => prevQuestions.concat(response.data));
         }
       })
       .finally(() => {
@@ -41,22 +51,37 @@ export const Questions: FC = () => {
       });
   }, [debouncedSearchTerm, page]);
 
+  useEffect(() => {
+    if (isSerachPage) {
+      setSearchParams({ filter: searchTerm });
+    }
+  }, [isSerachPage, searchTerm, setSearchParams]);
+
   return (
     <>
       <QuestionListHeader>
-        <Title>{'page title'}:</Title>
+        <Title>{isSerachPage ? 'Search Results' : 'Questions List'}:</Title>
         <HeaderText>
           Choose the question to vote on or use the search field to find the
           question
         </HeaderText>
         <StyledTextField
-          value={searchTerm}
+          value={searchTerm || ''}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Type your search here"
           maxLength={70}
         />
       </QuestionListHeader>
       <Container>
+        {isSerachPage && (
+          <SearchResultDescription>
+            <p>{`Search results for "${searchTerm.trim()}"`}</p>
+            <Button onClick={backToList} color="secondary">
+              Back to list page
+            </Button>
+          </SearchResultDescription>
+        )}
+
         {questions.map(({ id, question }, i) => {
           return (
             <Link to={`/questions/${id}`} key={i}>
@@ -66,7 +91,6 @@ export const Questions: FC = () => {
             </Link>
           );
         })}
-
         {!!questions.length && (
           <LoadMore>
             <Button
