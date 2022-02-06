@@ -22,6 +22,8 @@
         "groups": [
           "/^react/",
           "module",
+          "/^api/",
+          "/^component/",
           "/^@shared/",
           ["parent", "sibling", "index"]
         ],
