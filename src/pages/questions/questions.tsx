@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { getQuestions } from 'api/questions/service';
@@ -31,6 +31,8 @@ export const Questions: FC = () => {
   const [isSearching, setIsSearching] = useState<boolean>();
   const [page, setPage] = useState(0);
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const isSerachPage = searchTerm !== null;
 
   const backToList = () => {
@@ -56,6 +58,9 @@ export const Questions: FC = () => {
     if (isSerachPage) {
       setSearchParams({ filter: searchTerm });
     }
+    if (inputRef.current && isSerachPage && searchTerm === '') {
+      inputRef.current.focus();
+    }
   }, [isSerachPage, searchTerm, setSearchParams]);
 
   return (
@@ -71,6 +76,7 @@ export const Questions: FC = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Type your search here"
           maxLength={70}
+          ref={inputRef}
         />
       </QuestionListHeader>
       <Container>
