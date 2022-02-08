@@ -40,9 +40,17 @@ export const HeaderText = styled.p`
 `;
 
 export const QuestionItemTitle = styled.span`
+  align-items: center;
   color: ${({ theme }) => theme.palette.text.primary};
+  display: flex;
   font-weight: bold;
   font-size: 25px;
+  justify-content: space-between;
+  .icon {
+    svg {
+      display: inline-block;
+    }
+  }
 `;
 
 export const StyledTextField = styled(TextField)`

@@ -1,4 +1,9 @@
 import { FC, useEffect, useRef, useState } from 'react';
+import {
+  AiOutlineArrowLeft,
+  AiOutlineArrowRight,
+  AiOutlineShareAlt,
+} from 'react-icons/ai';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { getQuestions } from 'api/questions/service';
@@ -81,19 +86,33 @@ export const Questions: FC = () => {
       </QuestionListHeader>
       <Container>
         {isSerachPage && (
-          <SearchResultDescription>
-            <p>{`Search results for "${searchTerm.trim()}"`}</p>
-            <Button onClick={backToList} color="secondary">
-              Back to list page
+          <div>
+            <Button
+              color="secondary"
+              iconStart={<AiOutlineArrowLeft />}
+              onClick={backToList}
+            >
+              Back to List
             </Button>
-          </SearchResultDescription>
+            <SearchResultDescription>
+              <p>{`Search results for "${searchTerm.trim()}"`} </p>
+              <Button color="primary" iconEnd={<AiOutlineShareAlt />}>
+                Share
+              </Button>
+            </SearchResultDescription>
+          </div>
         )}
 
         {questions.map(({ id, question }, i) => {
           return (
             <Link to={`/questions/${id}`} key={i}>
               <Card hoverEffect>
-                <QuestionItemTitle>{question}</QuestionItemTitle>
+                <QuestionItemTitle>
+                  <span className="text">{question}</span>
+                  <span className="icon">
+                    <AiOutlineArrowRight />
+                  </span>
+                </QuestionItemTitle>
               </Card>
             </Link>
           );
