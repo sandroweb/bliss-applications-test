@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getQuestions } from 'api/questions/service';
 import { Question } from 'api/questions/types';
 
-import { useDebounce } from 'helpers/useDebounce';
+import { useDebounce } from 'helpers/hooks/useDebounce';
 
 export const useFetchQuestions = () => {
   const navigate = useNavigate();
