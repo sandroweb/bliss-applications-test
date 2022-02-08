@@ -1,25 +1,18 @@
-import { FC, useEffect, useRef, useState } from 'react';
-import {
-  AiOutlineArrowLeft,
-  AiOutlineArrowRight,
-  AiOutlineShareAlt,
-} from 'react-icons/ai';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { AiOutlineArrowLeft, AiOutlineShareAlt } from 'react-icons/ai';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { getQuestions } from 'api/questions/service';
 import { Question } from 'api/questions/types';
 
 import { Button } from 'components/button';
-import { Card } from 'components/card';
+import { QuestionList } from 'components/question-list';
+import { QuestionListHeader } from 'components/question-list-header';
 
 import { useDebounce } from 'helpers/useDebounce';
 
 import {
   Container,
-  QuestionListHeader,
-  Title,
-  HeaderText,
-  QuestionItemTitle,
   StyledTextField,
   SearchResultDescription,
   LoadMore,
@@ -45,19 +38,29 @@ export const Questions: FC = () => {
     navigate('/questions');
   };
 
+  const fetchQuestions = useCallback(
+    (currentPage = 0) => {
+      setPage(currentPage);
+      getQuestions({ page: currentPage, filter: debouncedSearchTerm })
+        .then((response) => {
+          if (currentPage === 0) {
+            setQuestions(response.data);
+          } else {
+            setQuestions((prevQuestions) =>
+              prevQuestions.concat(response.data)
+            );
+          }
+        })
+        .finally(() => {
+          setIsSearching(false);
+        });
+    },
+    [debouncedSearchTerm]
+  );
+
   useEffect(() => {
-    getQuestions({ page, filter: debouncedSearchTerm })
-      .then((response) => {
-        if (page === 0) {
-          setQuestions(response.data);
-        } else {
-          setQuestions((prevQuestions) => prevQuestions.concat(response.data));
-        }
-      })
-      .finally(() => {
-        setIsSearching(false);
-      });
-  }, [debouncedSearchTerm, page]);
+    fetchQuestions();
+  }, [fetchQuestions]);
 
   useEffect(() => {
     if (isSerachPage) {
@@ -70,12 +73,11 @@ export const Questions: FC = () => {
 
   return (
     <>
-      <QuestionListHeader>
-        <Title>{isSerachPage ? 'Search Results' : 'Questions List'}:</Title>
-        <HeaderText>
-          Choose the question to vote on or use the search field to find the
-          question
-        </HeaderText>
+      <QuestionListHeader
+        title={isSerachPage ? 'Search Results' : 'Questions List'}
+        subTitle="Choose the question to vote on or use the search field to find the
+        question"
+      >
         <StyledTextField
           value={searchTerm || ''}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -102,28 +104,14 @@ export const Questions: FC = () => {
             </SearchResultDescription>
           </div>
         )}
-
-        {questions.map(({ id, question }, i) => {
-          return (
-            <Link to={`/questions/${id}`} key={i}>
-              <Card hoverEffect>
-                <QuestionItemTitle>
-                  <span className="text">{question}</span>
-                  <span className="icon">
-                    <AiOutlineArrowRight />
-                  </span>
-                </QuestionItemTitle>
-              </Card>
-            </Link>
-          );
-        })}
+        <QuestionList questions={questions} />
         {!!questions.length && (
           <LoadMore>
             <Button
               color="primary"
               disabled={isSearching}
               onClick={() => {
-                setPage((prevPage) => prevPage + 1);
+                fetchQuestions(page + 1);
               }}
             >
               Load More
