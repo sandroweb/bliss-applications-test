@@ -4,10 +4,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getHealthStatus } from 'api/health-check/service';
 
 import { Button } from 'components/button';
-import { Card } from 'components/card';
 import { Loading } from 'components/loading';
-
-import { Container, Overlay, Title } from './health-check.styled';
+import { Modal } from 'components/modal';
 
 export const HealthCheck: FC = () => {
   const location = useLocation();
@@ -34,20 +32,14 @@ export const HealthCheck: FC = () => {
     }
   }, [location.pathname, navigate, serverStatus]);
 
-  return !serverStatus ? (
-    <>
-      <Overlay />
-      <Container>
-        <Card>
-          <Title>Checking Server status</Title>
-          <Loading show={loading} />
-          {serverStatus === false && (
-            <Button color="primary" onClick={handleCheckStatus}>
-              Try Again
-            </Button>
-          )}
-        </Card>
-      </Container>
-    </>
-  ) : null;
+  return (
+    <Modal title="Checking Server status" show={!serverStatus}>
+      <Loading show={loading} />
+      {serverStatus === false && (
+        <Button color="primary" onClick={handleCheckStatus}>
+          Try Again
+        </Button>
+      )}
+    </Modal>
+  );
 };
