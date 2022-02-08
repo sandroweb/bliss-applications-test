@@ -12,9 +12,17 @@ export const Button: FC<ButtonProps> = ({
 }) => {
   return (
     <StyledButton {...props} color={color}>
-      {iconStart && <span className="icon icon-start">{iconStart}</span>}
-      <span className="text">{children}</span>
-      {iconEnd && <span className="icon icon-end">{iconEnd}</span>}
+      {iconStart && (
+        <span className={'icon icon-start' + (children ? '' : ' no-margin')}>
+          {iconStart}
+        </span>
+      )}
+      {children && <span className="text">{children}</span>}
+      {iconEnd && (
+        <span className={'icon icon-end' + (children ? '' : ' no-margin')}>
+          {iconEnd}
+        </span>
+      )}
     </StyledButton>
   );
 };

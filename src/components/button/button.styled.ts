@@ -29,6 +29,9 @@ export const StyledButton = styled.button<StyledButtonProps>`
   }
   .icon {
     font-size: 1.1em;
+    &.no-margin {
+      margin: 0;
+    }
   }
   .icon-start {
     margin-right: ${({ theme }) => theme.spacing(0.4)}px;
