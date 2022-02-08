@@ -6,12 +6,13 @@ import { ButtonProps } from './button.type';
 export const Button: FC<ButtonProps> = ({
   children,
   color = 'primary',
+  size = 'medium',
   iconStart,
   iconEnd,
   ...props
 }) => {
   return (
-    <StyledButton {...props} color={color}>
+    <StyledButton {...props} color={color} size={size}>
       {iconStart && (
         <span className={'icon icon-start' + (children ? '' : ' no-margin')}>
           {iconStart}

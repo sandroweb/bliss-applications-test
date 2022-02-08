@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { StyledButtonProps } from './button.type';
 
@@ -10,7 +10,6 @@ export const StyledButton = styled.button<StyledButtonProps>`
   cursor: pointer;
   display: inline-flex;
   font-size: 14px;
-  margin-bottom: ${({ theme }) => theme.spacing(1)}px;
   padding-top: ${({ theme }) => theme.spacing(0.7)}px;
   padding-right: ${({ theme }) => theme.spacing(1)}px;
   padding-bottom: ${({ theme }) => theme.spacing(0.5)}px;
@@ -39,4 +38,13 @@ export const StyledButton = styled.button<StyledButtonProps>`
   .icon-end {
     margin-left: ${({ theme }) => theme.spacing(0.4)}px;
   }
+  ${({ size }) => {
+    return size === 'medium'
+      ? css``
+      : css`
+          height: 55px;
+          font-size: 22px;
+          line-height: 1.6;
+        `;
+  }}
 `;
