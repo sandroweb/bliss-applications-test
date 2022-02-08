@@ -6,4 +6,6 @@ export type StyledButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export type ButtonProps = Omit<StyledButtonProps, 'color'> & {
   color?: StyledButtonProps['color'];
+  iconStart?: JSX.Element;
+  iconEnd?: JSX.Element;
 };
