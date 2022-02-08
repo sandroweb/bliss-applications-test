@@ -28,6 +28,7 @@ export const useFetchQuestions = () => {
 
   const fetchQuestions = useCallback(
     (currentPage = 0) => {
+      setIsSearching(true);
       setPage(currentPage);
       getQuestions({ page: currentPage, filter: debouncedSearchTerm })
         .then((response) => {
