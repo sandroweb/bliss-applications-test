@@ -6,3 +6,60 @@ export const Container = styled.div`
   max-width: 1200px;
   width: calc(100% - ${({ theme }) => theme.spacing(2)}px);
 `;
+
+export const Content = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ImageCt = styled.div`
+  border-radius: 5px;
+  margin-bottom: ${({ theme }) => `${theme.spacing(1)}px`};
+  margin-right: ${({ theme }) => `${theme.spacing(1)}px`};
+  min-width: 50%;
+  overflow: hidden;
+`;
+
+export const StyledImage = styled.img`
+  display: block;
+  height: auto;
+  max-width: 100%;
+`;
+
+export const DetailsTitle = styled.h1`
+  color: ${({ theme }) => theme.palette.text.primary};
+  margin-bottom: ${({ theme }) => `${theme.spacing(0.5)}px`};
+`;
+export const DetailsDateCt = styled.div`
+  color: ${({ theme }) => theme.palette.text.primary};
+  display: flex;
+  justify-content: end;
+  font-size: 15px;
+`;
+export const ChoicesList = styled.ul`
+  padding: 0;
+`;
+export const ChoicesItem = styled.li`
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  + li {
+    border-top: ${({ theme }) => `1px solid ${theme.palette.grey[200]}`};
+    padding-top: ${({ theme }) => `${theme.spacing(1)}px`};
+  }
+`;
+export const ChoiceItemRight = styled.span`
+  display: flex;
+  flex-direction: column;
+`;
+export const Choice = styled.span`
+  color: ${({ theme }) => theme.palette.text.primary};
+`;
+export const Votes = styled.span`
+  color: ${({ theme }) => theme.palette.text.primary};
+`;
+
+export const DetailsBottom = styled.div`
+  display: flex;
+  justify-content: end;
+`;
