@@ -52,6 +52,7 @@ export const useFetchQuestions = () => {
   }, [fetchQuestions]);
 
   useEffect(() => {
+    setIsSearching(true);
     if (isSerachPage) {
       setSearchParams({ filter: searchTerm });
     }

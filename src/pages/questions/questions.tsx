@@ -68,7 +68,7 @@ export const Questions: FC = () => {
             </SearchResultDescription>
           </div>
         )}
-        <QuestionList questions={questions} />
+        <QuestionList questions={questions} loading={isSearching} />
         {!!questions.length && (
           <LoadMore>
             <Button

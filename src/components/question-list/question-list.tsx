@@ -11,9 +11,9 @@ import {
 } from './question-list.styled';
 import { QuestionListProps } from './question-list.type';
 
-export const QuestionList: FC<QuestionListProps> = ({ questions }) => {
+export const QuestionList: FC<QuestionListProps> = ({ questions, loading }) => {
   return (
-    <StyledQuestionList>
+    <StyledQuestionList loadingState={loading}>
       {questions.map(({ id, question }, i) => {
         return (
           <StyledQuestionItem key={i}>
