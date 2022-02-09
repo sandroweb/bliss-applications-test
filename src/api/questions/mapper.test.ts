@@ -1,7 +1,7 @@
 import { updateVoteBody } from './mapper';
 
-describe('URL helpers', () => {
-  test('getFirstSegment', () => {
+describe('Questions Mapper', () => {
+  test('Update Vote Body', () => {
     expect(
       updateVoteBody(
         {
