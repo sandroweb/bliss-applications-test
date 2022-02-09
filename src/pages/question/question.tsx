@@ -12,6 +12,7 @@ import { Question } from 'api/questions/types';
 import { Button } from 'components/button';
 import { Card } from 'components/card';
 import { ShareContext } from 'components/share/context/shareContext';
+import { ToastContext } from 'components/toast/context/toastContext';
 
 import {
   Choice,
@@ -33,14 +34,28 @@ export const QuestionDetail: FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { setShareData } = useContext(ShareContext);
+  const { setToastData } = useContext(ToastContext);
 
   const [questionObject, setQuestion] = useState<Question>();
 
   const handleVote = (vote: string) => {
     if (questionObject) {
-      updateVote(questionObject, vote).then((res) => {
-        console.warn('res', res);
-      });
+      updateVote(questionObject, vote)
+        .then((res) => {
+          setToastData({
+            severity: 'success',
+            text: 'Your vote has been registered successfully!',
+            show: true,
+          });
+          setQuestion(res.data);
+        })
+        .catch(() => {
+          setToastData({
+            severity: 'error',
+            text: 'There was an error registering your vote. Try again later.',
+            show: true,
+          });
+        });
     }
   };
 
