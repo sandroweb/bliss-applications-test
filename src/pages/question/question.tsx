@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import {
   AiOutlineShareAlt,
   AiOutlineArrowLeft,
@@ -11,6 +11,7 @@ import { Question } from 'api/questions/types';
 
 import { Button } from 'components/button';
 import { Card } from 'components/card';
+import { ShareContext } from 'components/share/context/shareContext';
 
 import {
   Choice,
@@ -31,6 +32,7 @@ import {
 export const QuestionDetail: FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { setShareData } = useContext(ShareContext);
 
   const [questionObject, setQuestion] = useState<Question>();
 
@@ -90,7 +92,13 @@ export const QuestionDetail: FC = () => {
           </Card>
         </Content>
         <DetailsBottom>
-          <Button color="primary" iconEnd={<AiOutlineShareAlt />}>
+          <Button
+            color="primary"
+            iconEnd={<AiOutlineShareAlt />}
+            onClick={() =>
+              setShareData({ show: true, url: window.location.href })
+            }
+          >
             Share
           </Button>
         </DetailsBottom>
