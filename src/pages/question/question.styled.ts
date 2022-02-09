@@ -10,6 +10,10 @@ export const Container = styled.div`
 export const Content = styled.div`
   display: flex;
   justify-content: space-between;
+  @media (max-width: 1200px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 `;
 
 export const ImageCt = styled.div`
@@ -18,6 +22,9 @@ export const ImageCt = styled.div`
   margin-right: ${({ theme }) => `${theme.spacing(1)}px`};
   min-width: 50%;
   overflow: hidden;
+  @media (max-width: 1200px) {
+    margin-right: 0;
+  }
 `;
 
 export const StyledImage = styled.img`
