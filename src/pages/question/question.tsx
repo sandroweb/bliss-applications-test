@@ -21,6 +21,7 @@ import {
   Content,
   DetailsBottom,
   DetailsDateCt,
+  DetailsContentTop,
   DetailsTitle,
   ImageCt,
   StyledImage,
@@ -54,13 +55,15 @@ export const QuestionDetail: FC = () => {
 
     return (
       <Container>
-        <Button
-          color="secondary"
-          iconStart={<AiOutlineArrowLeft />}
-          onClick={() => navigate('/questions')}
-        >
-          Back to List
-        </Button>
+        <DetailsContentTop>
+          <Button
+            color="secondary"
+            iconStart={<AiOutlineArrowLeft />}
+            onClick={() => navigate('/questions')}
+          >
+            Back to List
+          </Button>
+        </DetailsContentTop>
         <Content>
           <ImageCt>
             <StyledImage src={image_url} width={600} height={400} alt="" />

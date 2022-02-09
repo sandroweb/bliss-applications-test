@@ -30,31 +30,42 @@ export const DetailsTitle = styled.h1`
   color: ${({ theme }) => theme.palette.text.primary};
   margin-bottom: ${({ theme }) => `${theme.spacing(0.5)}px`};
 `;
+
 export const DetailsDateCt = styled.div`
   color: ${({ theme }) => theme.palette.text.primary};
   display: flex;
   justify-content: end;
   font-size: 15px;
 `;
+
+export const DetailsContentTop = styled.div`
+  padding: ${({ theme }) => theme.spacing(1)}px 0;
+`;
+
 export const ChoicesList = styled.ul`
+  margin: 0;
   padding: 0;
 `;
+
 export const ChoicesItem = styled.li`
   align-items: center;
   display: flex;
   justify-content: space-between;
+  padding: ${({ theme }) => `${theme.spacing(1)}px`} 0;
   + li {
     border-top: ${({ theme }) => `1px solid ${theme.palette.grey[200]}`};
-    padding-top: ${({ theme }) => `${theme.spacing(1)}px`};
   }
 `;
+
 export const ChoiceItemRight = styled.span`
   display: flex;
   flex-direction: column;
 `;
+
 export const Choice = styled.span`
   color: ${({ theme }) => theme.palette.text.primary};
 `;
+
 export const Votes = styled.span`
   color: ${({ theme }) => theme.palette.text.primary};
 `;
