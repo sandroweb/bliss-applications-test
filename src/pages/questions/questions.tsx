@@ -1,17 +1,18 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { AiOutlineArrowLeft, AiOutlineShareAlt } from 'react-icons/ai';
 
 import { Button } from 'components/button';
 import { QuestionList } from 'components/question-list';
 import { QuestionListHeader } from 'components/question-list-header';
+import { ShareContext } from 'components/share/context/shareContext';
 
+import { useFetchQuestions } from './hooks/useFetchQuestions';
 import {
   Container,
   StyledTextField,
   SearchResultDescription,
   LoadMore,
 } from './questions.styled';
-import { useFetchQuestions } from './useFetchQuestions';
 
 export const Questions: FC = () => {
   const {
@@ -25,6 +26,8 @@ export const Questions: FC = () => {
     page,
     fetchQuestions,
   } = useFetchQuestions();
+
+  const { setShareData } = useContext(ShareContext);
 
   return (
     <>
@@ -53,7 +56,13 @@ export const Questions: FC = () => {
             </Button>
             <SearchResultDescription>
               <p>{`Search results for "${searchTerm?.trim()}"`} </p>
-              <Button color="primary" iconEnd={<AiOutlineShareAlt />}>
+              <Button
+                color="primary"
+                iconEnd={<AiOutlineShareAlt />}
+                onClick={() =>
+                  setShareData({ show: true, url: window.location.href })
+                }
+              >
                 Share
               </Button>
             </SearchResultDescription>
