@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { TextFieldProps } from './text-field.type';
 export const StyledInput = styled.input<TextFieldProps>`
@@ -16,4 +16,17 @@ export const StyledInput = styled.input<TextFieldProps>`
   &::placeholder {
     color: ${({ theme }) => theme.palette.text.secondary};
   }
+  ${({ error }) => {
+    return error
+      ? css`
+          border: ${({ theme }) => `1px solid ${theme.palette.error.main}`};
+          color: ${({ theme }) => theme.palette.error.main};
+          &:focus {
+            box-shadow: ${({ theme }) => {
+              return `0 0 0 1px ${theme.palette.error.main}`;
+            }};
+          }
+        `
+      : ``;
+  }}
 `;
